@@ -7,7 +7,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Hw_01_gapminder
+## hw_01_gapminder
 ### Jessica Stewart
 
 ```{r}
