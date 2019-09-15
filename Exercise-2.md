@@ -1,7 +1,7 @@
 ---
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 ## Exercise 2
 ### Jessica Stewart
@@ -19,7 +19,7 @@ tail(gapminder)
 str(gapminder)
 
 
-#To see descriptive statistics. 
+#To see descriptive statistics
 summary(gapminder)
 
 
