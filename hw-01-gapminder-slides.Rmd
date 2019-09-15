@@ -1,0 +1,39 @@
+---
+title: "Hw-01-gapminder-slides"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## hw_01_gapminder_slides
+### Jessica Stewart
+
+```{r}
+library(tibble)
+library(gapminder)
+```
+
+#Top of file
+
+```{r}
+head(gapminder)
+```
+#Bottom of file
+
+```{r}
+tail(gapminder)
+```
+
+#Variables
+
+```{r}
+str(gapminder)
+```
+
+#Descriptive statistics
+
+```{r}
+summary(gapminder)
+```
