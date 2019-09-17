@@ -64,3 +64,7 @@ ggplot(mauna, aes(month, conc)) +
   geom_line()
 ```
 
+```{r, fig.width = 5, fig.height = 2}
+ggplot(mauna) +
+  geom_point(aes(x = month, y = conc))
+```
