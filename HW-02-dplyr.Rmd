@@ -15,6 +15,7 @@ knitr::opts_chunk$set(error = TRUE)
 library(gapminder)
 library(tidyverse)
 ```
+#Exercise 1
 
 ##Exercise 1.1
 
@@ -43,8 +44,79 @@ Filter gapminder to all entries that have experienced a drop in life expectancy.
 gapminder %>%
   group_by(country) %>% 
   arrange(year) %>% 
-  mutate(inc_lifeExp = difference(lifeExp)) %>%
+  mutate(inc_lifeExp = diff(lifeExp)) %>%
   drop_na() %>%
   filter(inc_life_Exp == min(inc_life_Exp))
 ```
 
+## Exercise 1.4
+
+Filter gapminder so that it shows the max GDP per capita experienced by each country. Hint: you might find the max() function useful here.
+
+```{r}
+gapminder %>%
+  summarise(country, max(gdpPercap))
+```
+
+## Exercise 1.5
+
+Produce a scatterplot of Canada’s life expectancy vs. GDP per capita using ggplot2, without defining a new variable. That is, after filtering the gapminder data set, pipe it directly into the ggplot() function. Ensure GDP per capita is on a log scale.
+
+```{r}
+ggplot(gapminder, aes(lifeExp, gdpPercap)) +
+  geom_point(alpha = 0.1) +
+  scale_x_log10("Life Expectancy") +
+  theme_bw() +
+  ylab("GDP per capita")
+
+
+```
+
+
+#Exercise 2: Explore individual variables with dplyr
+
+Pick one categorical variable and one quantitative variable to explore. Answer the following questions in whichever way you think is appropriate, using dplyr:
+
+**1. What are possible values (or range, whichever is appropriate) of each variable?**
+Categorical variable: Continent
+Possible values: Africa, Americas, Asia, Europe, Oceania. 
+
+Quantitative variable: Life Expectancy: Range 23.6 - 82.6
+
+**2. What values are typical? What’s the spread? What’s the distribution? Etc., tailored to the variable at hand**.
+Most common continent is African by far. Least common is Oceania by far. Average is Europe. 
+Mean life expectancy is 59.47.
+
+3. Feel free to use summary stats, tables, figures.
+
+```{r}
+summary(gapminder)
+```
+
+
+```{r}
+ggplot(gapminder, aes(lifeExp, continent)) +
+  geom_boxplot()
+  
+```
+
+# Exercise 3: Explore various plot types (30%)
+
+Make two plots that have some value to them. That is, plots that someone might actually consider making for an analysis. Just don’t make the same plots we made in class – feel free to use a data set from the datasets R package if you wish.
+
+A scatterplot of two quantitative variables.
+One other plot besides a scatterplot.
+
+```{r}
+ggplot(gapminder, aes(lifeExp, pop)) +
+  geom_point(alpha = 0.1) +
+  theme_bw() +
+  scale_y_log10("Population")
+
+```
+
+```{r}
+ggplot(gapminder, aes(pop, continent)) +
+  geom_boxplot()
+  
+```
