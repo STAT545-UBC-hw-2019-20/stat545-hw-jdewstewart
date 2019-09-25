@@ -3,12 +3,9 @@ title: "HW-02-dplyr"
 output: pdf_document
 ---
 
-
-
 ```{r allow errors, echo = FALSE}
 knitr::opts_chunk$set(error = TRUE)
 ```
-
 
 
 ```{r}
@@ -24,7 +21,7 @@ gapminder %>%
      filter(country %in% c("Japan", "Canada", "Kenya")) %>%
      filter(year %in% c("1972", "1977")) 
 ```
-
+ 
 ## Exercise 1.2
 
 Use the pipe operator %>% to select “country” and “gdpPercap” from your filtered dataset in 1.1.
@@ -55,7 +52,8 @@ Filter gapminder so that it shows the max GDP per capita experienced by each cou
 
 ```{r}
 gapminder %>%
-  summarise(country, max(gdpPercap))
+  filter(country) %>%
+  max(gdpPercap)
 ```
 
 ## Exercise 1.5
