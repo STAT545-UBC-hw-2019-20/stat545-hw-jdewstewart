@@ -9,7 +9,17 @@ output: pdf_document
 knitr::opts_chunk$set(error = TRUE)
 ```
 
-suppressPackageStartupMessages()
 
+
+```{r}
 library(gapminder)
 library(tidyverse)
+```
+
+##Exercise 1.1
+
+```{r}
+gapminder %>%
+     filter(country %in% c("Japan", "Canada", "Kenya")) %>%
+     filter(year %in% c("1972", "1977"))
+```
