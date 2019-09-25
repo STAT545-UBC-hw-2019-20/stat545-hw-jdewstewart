@@ -21,5 +21,30 @@ library(tidyverse)
 ```{r}
 gapminder %>%
      filter(country %in% c("Japan", "Canada", "Kenya")) %>%
-     filter(year %in% c("1972", "1977"))
+     filter(year %in% c("1972", "1977")) 
 ```
+
+## Exercise 1.2
+
+Use the pipe operator %>% to select “country” and “gdpPercap” from your filtered dataset in 1.1.
+
+```{r}
+gapminder %>%
+     filter(country %in% c("Japan", "Canada", "Kenya")) %>%
+     filter(year %in% c("1972", "1977")) %>%
+     select(country, gdpPercap)
+```
+
+## Exercise 1.3
+
+Filter gapminder to all entries that have experienced a drop in life expectancy. Be sure to include a new variable that’s the increase in life expectancy in your tibble. Hint: you might find the lag() or diff() functions useful.
+
+```{r}
+gapminder %>%
+  group_by(country) %>% 
+  arrange(year) %>% 
+  mutate(inc_lifeExp = difference(lifeExp)) %>%
+  drop_na() %>%
+  filter(inc_life_Exp == min(inc_life_Exp))
+```
+
