@@ -1,0 +1,16 @@
+---
+title: "HW-03 - J Stewart"
+output: html_document
+---
+
+```{r allow errors, echo = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+
+```{r}
+library(gapminder)
+library(tidyverse)
+```
+
+## 
