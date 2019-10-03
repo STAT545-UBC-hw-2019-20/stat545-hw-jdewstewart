@@ -68,11 +68,4 @@ ggplot(gapminder, aes(gdpPercap, continent)) +
 
 
 
-Task Option 4
-Compute a trimmed mean of life expectancy for different years. Or a weighted mean, weighting by population. Just try something other than the plain vanilla mean.
-
-Task Option 5
-How is life expectancy changing over time on different continents?
-
-
 
