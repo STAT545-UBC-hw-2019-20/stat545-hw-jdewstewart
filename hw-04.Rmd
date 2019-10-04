@@ -1,0 +1,37 @@
+---
+title: "HW-04"
+output: html_document
+---
+
+```{r allow errors, echo = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+
+```{r}
+library(gapminder)
+library(tidyverse)
+```
+
+Exercise 1: Univariate Data Reshaping (30%)
+Choose *EITHER* “Univariate Option 1” or “Univariate Option 2”. Both of these problems have three components:
+
+Putting data in wider format;
+5%: Did you produce the correct result?
+5%: Code quality
+Producing a plot of the wide data; (10%)
+5%: Did you produce a sensible visualization?
+5%: Code quality
+Re-lengthening the wider data. (10%)
+5%: Did you produce the correct result?
+5%: Code quality
+You are expected to use pivot_wider() and pivot_longer() for reshaping, and ggplot2 for the plot.
+
+Regarding the plot:
+
+Don’t worry about plotting all of the data from the wide tibble.
+The plot should be something that someone might actually want to produce in an analysis.
+Univariate Option 1
+Make a tibble with one row per year, and columns for life expectancy for two or more countries.
+Take advantage of this new data shape to scatterplot life expectancy for one country against that of another.
+Re-lengthen the data.
