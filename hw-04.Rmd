@@ -2,36 +2,146 @@
 title: "HW-04"
 output: html_document
 ---
-
 ```{r allow errors, echo = FALSE}
 knitr::opts_chunk$set(error = TRUE)
 ```
-
-
 ```{r}
 library(gapminder)
 library(tidyverse)
 ```
 
-Exercise 1: Univariate Data Reshaping (30%)
-Choose *EITHER* “Univariate Option 1” or “Univariate Option 2”. Both of these problems have three components:
+##Exercise 1: Univariate Data Reshaping
+**Univariate Option 1**
+*Make a tibble with one row per year, and columns for life expectancy for Japan and Rwanda.*
+```{r}
+Japan_Rwanda <- as.tibble(gapminder) %>%
+  group_by(year) %>%
+  filter(country %in% c("Japan", "Rwanda")) %>%
+  select(year, country, lifeExp)
+```
 
-Putting data in wider format;
-5%: Did you produce the correct result?
-5%: Code quality
-Producing a plot of the wide data; (10%)
-5%: Did you produce a sensible visualization?
-5%: Code quality
-Re-lengthening the wider data. (10%)
-5%: Did you produce the correct result?
-5%: Code quality
-You are expected to use pivot_wider() and pivot_longer() for reshaping, and ggplot2 for the plot.
+```{r}
+view(Japan_Rwanda)
+```
 
-Regarding the plot:
+```{r}
+Japan_Rwanda_wide <- Japan_Rwanda %>%
+    pivot_wider(names_from = "country", values_from = "lifeExp")
+```
 
-Don’t worry about plotting all of the data from the wide tibble.
-The plot should be something that someone might actually want to produce in an analysis.
-Univariate Option 1
-Make a tibble with one row per year, and columns for life expectancy for two or more countries.
-Take advantage of this new data shape to scatterplot life expectancy for one country against that of another.
-Re-lengthen the data.
+```{r}
+view(Japan_Rwanda_wide)
+```
+
+```{r}
+Japan_Rwanda_wide %>%
+  rename(Japan_lifeExp = Japan) %>%
+  rename(Rwanda_lifeExp = Rwanda)
+```
+
+*Scatterplot life expectancy for Japan against Rwanda.*
+```{r}
+Japan_Rwanda %>%
+  ggplot(aes(year, lifeExp)) + 
+    geom_line(aes(group = country), colour = "grey50") + 
+    geom_point(aes(colour = country))
+```
+
+*Re-lengthen the data.*
+```{r}
+Japan_Rwanda_long <- Japan_Rwanda_wide %>%
+    pivot_longer(cols = c("Japan","Rwanda"), names_to = "country", values_to = "LifeExp")
+```
+
+```{r}
+Japan_Rwanda_long
+```
+
+##Exercise 2: Multivariate Data Reshaping (30%)
+**Multivariate Option 1**
+
+*Make a tibble with one row per year, and columns for life expectancy and GDP per capita for Japan and Rwanda.*
+```{r}
+Japan_Rwanda_GDP <- as.tibble(gapminder) %>%
+group_by(year) %>%
+  filter(country %in% c("Japan", "Rwanda")) %>%
+  select(year, country, gdpPercap)
+```
+
+```{r}
+view(Japan_Rwanda_GDP)
+```
+
+```{r}
+Japan_Rwanda_GDP_wide <- Japan_Rwanda_GDP %>%
+    pivot_wider(names_from = "country", values_from = "gdpPercap")
+```
+
+```{r}
+view(Japan_Rwanda_GDP_wide)
+```
+
+```{r}
+Japan_Rwanda_GDP_wide %>%
+  rename(Japan_GDP = Japan) %>%
+  rename(Rwanda_GDP = Rwanda)
+```
+
+```{r}
+widest_Japan_Rwanda <- left_join(Japan_Rwanda_wide, Japan_Rwanda_GDP_wide, by = "year")
+```
+
+```{r}
+view(widest_Japan_Rwanda)
+```
+
+**Re-lengthen the data.**
+
+```{r}
+Japan_Rwanda_long <- widest_Japan_Rwanda %>%
+    pivot_longer(cols = c("Japan.x","Rwanda.x", "Japan.y", "Rwanda.y"), 
+                 names_to = "country","LifeExp","gdpPercap")
+```
+
+##Exercise 3: Table Joins (30%)
+*Read in the made-up wedding guestlist and email addresses using the following lines (go ahead and copy-paste these)*
+
+```{r}
+guest <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/attend.csv")
+email <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/emails.csv")
+```
+**3.1 For each guest in the guestlist (guest tibble), add a column for email address, which can be found in the email tibble.**
+
+```{r}
+email_list <- rename(email, name = guest)
+```
+
+```{r}
+view(email_list)
+```
+
+```{r}
+guest_list_email <- left_join(guest, email_list, by = "name")
+
+view(guest_list_email)
+```
+
+
+3.2 Who do we have emails for, yet are not on the guestlist?
+```{r}
+not_list <- guest_list_all %>%
+  filter(party, is.na(TRUE))
+
+view(not_list)
+```
+
+
+3.3 Make a guestlist that includes everyone we have emails for (in addition to those on the original guestlist).
+
+```{r}
+guest_list_all <- full_join(guest, email_list, by = "name")
+
+
+view(guest_list_all)
+```
+
