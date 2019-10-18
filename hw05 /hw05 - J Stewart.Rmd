@@ -146,3 +146,37 @@ ggplot() +
 
 ## Exercise 4: Visualization design (20%)
 
+*From hw03* 
+**Density plot of GDP per Capita by continent**
+```{r}
+ggplot(gapminder, aes(gdpPercap, continent)) +
+  ggridges::geom_density_ridges()
+```
+
+
+```{r}
+GDPperCap_by_Cont<- ggplot(gapminder, aes(gdpPercap, continent)) +
+  ggridges::geom_density_ridges() +
+  scale_x_continuous("GDP per Capita") +
+  scale_y_discrete("Continent") +
+  theme_minimal() + ggtitle("GDP per Capita by Continent")
+```
+
+
+## Exercise 5: Writing figures to file (10%)
+
+*Task: Use ggsave() to explicitly save a plot to file. Include the exported plot as part of your repository and assignment.*
+
+```{r}
+GDPperCap_by_Cont <- "GDPperCap_by_Cont.png"
+```
+
+```{r}
+plot_path <- here::here("hw05", "GDPperCap_by_Cont.png") 
+
+```
+
+```{r}
+ggsave(GDPperCap_by_Cont)
+
+```
