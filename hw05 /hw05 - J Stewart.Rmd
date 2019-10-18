@@ -17,7 +17,7 @@ library(ggridges)
 
 Task: In your own words, summarize the value of the here::here package in 250 words or fewer.
 
-### Why I should use the **here:here package
+### Why I should use the here:here package
   
 1. It will allow other people to open and run my code without changing the working drive.
 2. It makes naming conventions easier. 
